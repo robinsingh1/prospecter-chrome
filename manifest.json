@@ -1,0 +1,31 @@
+{
+  "manifest_version": 2,
+
+  "name": "Powerdial",
+  "description": "This extension demonstrates a browser action with kittens.",
+  "version": "1.0",
+
+  "browser_action": {
+    "default_icon": "img/phone-icon.png",
+    "default_popup": "popup.html"
+  },
+
+  "permissions": [
+    "https://app.pipedrive.com/people",
+    "http://app.pipedrive.com/people"
+  ],
+
+  "content_scripts": [
+    {
+      "js": ["js/jquery.js", "js/plivo.min.js", "js/plivo-boilerplate.js", "js/app.js"],
+      "matches": ["*://app.pipedrive.com/people"],
+      "run_at": "document_end"
+    }
+  ],
+
+  "web_accessible_resources": [
+    "jquery-1.10.1.min.map",
+    "new-issue.css",
+    "issues.css"
+  ]
+}
