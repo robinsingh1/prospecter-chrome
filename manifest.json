@@ -17,15 +17,23 @@
 
   "content_scripts": [
     {
-      "js": ["js/jquery.js", "js/plivo.min.js", "js/plivo-boilerplate.js", "js/app.js"],
+      "js": ["js/jquery.js", "js/moment.min.js", "js/plivo.min.js", "js/plivo-boilerplate.js", "js/app.js"],
       "matches": ["*://app.pipedrive.com/people"],
+      "run_at": "document_end"
+    },
+    {
+      "js": ["js/jquery.js", "js/moment.min.js", "js/plivo.min.js", "js/plivo-boilerplate.js","js/messenger.min.js","js/messenger-theme-flat.js","js/messenger-theme-future.js","js/messenger.js", "js/salesforce.js"],
+      "css": [,"css/messenger.css","css/messenger-spinner.css", "css/messenger-theme-air.css", "css/messenger-theme-block.css", "css/messenger-theme-flat.css", "css/messenger-theme-future.css", "css/messenger-theme-ice.css","css/app.css"],
+
+      "matches": ["*://*.salesforce.com/*"],
       "run_at": "document_end"
     }
   ],
 
   "web_accessible_resources": [
-    "jquery-1.10.1.min.map",
-    "new-issue.css",
+    "js/jquery.js",
+    "img/*.png",
+    "css/bootstrap.min.css",
     "issues.css"
   ]
 }

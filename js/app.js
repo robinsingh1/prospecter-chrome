@@ -1,27 +1,43 @@
 console.log('lol')
 
-Plivo.onWebrtcNotSupported = webrtcNotSupportedAlert;
-Plivo.onReady = onReady;
-Plivo.onLogin = onLogin;
-Plivo.onLoginFailed = onLoginFailed;
-Plivo.onLogout = onLogout;
-Plivo.onCalling = onCalling;
-Plivo.onCallRemoteRinging = onCallRemoteRinging;
-Plivo.onCallAnswered = onCallAnswered;
-Plivo.onCallTerminated = onCallTerminated;
-Plivo.onCallFailed = onCallFailed;
-Plivo.onMediaPermission = onMediaPermission;
-Plivo.onIncomingCall = onIncomingCall;
-Plivo.onIncomingCallCanceled = onIncomingCallCanceled;
-Plivo.init();
+function call(e, name){
+  num = $(e.target).text().replace(/[^\d.]/g, "")
+  num = '+1'+num
+  Plivo.conn.call(num);
 
-navigator.webkitGetUserMedia({audio: true}, function(_stream) { });
-Plivo.conn.login('robin140507184306', 'lmaolmao');
-
-function call(){
-  console.log('call')
-  Plivo.conn.call('+19056167602');
+  name = $($(e.target).parents('tr').find('td')[0]).text()
+  user_id = $($(e.target).parents('tr').find('td')[0]).find('a').attr('href')
+  user_id = parseInt(user_id.split('/person/details/')[1])
+  updateCRM(name, user_id)
 }
 
-Plivo.onLogin = call
+function updateCRM(name,user_id){
+  api_token = '?api_token=f7ecfd6be2d6a793b743893c2a4bc1648449625d'
+  base_url = 'https://api.pipedrive.com/v1/activities'
 
+  subject = 'Made a call to '+name
+  due_date = moment().format('YYYY-MM-DD')
+  due_time = moment.utc().format('HH:MM')
+  duration = "10:10"
+
+  data = {
+    "subject"   : subject,
+    "done"      : true,
+    "type"      : "call",
+    //"due_date"  : due_date,
+    //"due_time"  : due_time,
+    "duration"  : duration,
+    "user_id"   : user_id,
+  }
+
+  $.post(base_url+api_token, data)
+}
+
+// Pipedrive Call To Links
+callto_links = $('body').find('a[href^="callto:"]')
+for(i=0;i<callto_links.length;i++){
+  $(callto_links[i]).attr('href','#')
+  $(callto_links[i]).click(call)
+}
+
+// Salesforce
