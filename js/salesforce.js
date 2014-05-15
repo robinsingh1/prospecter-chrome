@@ -26,10 +26,6 @@ function call(e, name){
   //updateCRM(name, user_id)
 }
 
-function calling(){
-  //$('#status_txt').text('Connecting....');
-}
-
 function callAnswered(){
   console.log('call answered')
   $('#status_txt').html('<div id="timer"><label id="minutes">00</label>:<label id="seconds">00</label></div>')

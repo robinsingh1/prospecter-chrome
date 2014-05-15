@@ -3,9 +3,13 @@
 
 // Check for auth
 Parse.initialize("KeExZClpOToLB2sqsM5NCqLHxD2Ixwayc8PIBQlM", "LDKhiQkBLClfElFsqyilJtSjljSuVgKhNRRaKX3F");
+//Parse.User.logOut()
 
 var currentUser = Parse.User.current();
 if (currentUser) {
+  // if phoneVerified ? true : false
+  // if emailVerified ? true : false
+  // if valid_crm_auth_token ? true : false
   window.location.href = "crm_choices.html"
 } else {
   window.location.href ="signup.html"

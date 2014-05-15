@@ -11,16 +11,28 @@
         background: #e5f1f7;
         background: linear-gradient(to bottom, #e5f1f7 0%,#ffffff 100%);
       }
+
+      .login-alert{
+        font-family:Helvetica;
+        font-weight:bold;
+        background-color:salmon;
+        padding:5px;
+        color:white;
+        border-radius:5px;
+        margin-bottom:25px;
+      }
+
     </style>
 
     <script type="text/javascript" src="js/jquery.js"></script>
     <link rel="stylesheet" href="css/app.css" />
     <center>
-    <div href="pipedrive_login.html" class="logo">
+    <div href="pipedrive_login.html" class="the-logo">
       <img src="../img/pipedrive-logo.png" style="height:auto;width:80px;display:block;"/>
     </div>
   </center>
     <center><h4>Login To Pipedrive</h4></center>
+    <center><div class="login-alert" style="display:none;">Your login info was incorrect. Please try again.</div></center>
     <center><input id="email" class="form-control" placeholder="email"/></center>
     <center><input id="password" class="form-control" type="password" placeholder="password"/></center>
     <br/>

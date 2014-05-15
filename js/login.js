@@ -1,21 +1,19 @@
-$('#login_button').on('click', function() {
-  hellYeah('xxx');
+$('#login_btn').on('click', function(){
+  authenticate_user()
 });
 
-function pipedrive_login(){
-  console.log('sent request')
-  login_info = {'email':$('#email').val() , 'password':$('#password').val()}
+Parse.initialize("KeExZClpOToLB2sqsM5NCqLHxD2Ixwayc8PIBQlM", "LDKhiQkBLClfElFsqyilJtSjljSuVgKhNRRaKX3F");
 
-  /*
-  {'email':'robin@customerohq.com',
-   'password':'951562nileppez'})
-  */
+function authenticate_user(){
+  email = $.trim($('#email').val())
+  password = $.trim($('#password').val())
+  Parse.User.logIn(email, password, {
+    success: function(user) {
+      window.location.href = 'ready.html'
+    },
+    error: function(user, error) {
+      $('.login-alert').show()
+    }
+  });
 
-  $.post('http://api.pipedrive.com/v1/authorizations', login_info)
-        .done(function(data){
-          console.log(data)
-          api_token = data.data[0].api_token
-        });
-
-  console.log(api_token)
 }

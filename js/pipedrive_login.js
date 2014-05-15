@@ -7,15 +7,21 @@ user = Parse.User.current()
 
 function pipedrive_login(){
   login_info = {'email':'robin@customerohq.com', 'password':'951562nileppez'}
-  //login_info = {'email':$('#email').val() , 'password':$('#password').val()}
+  login_info = {'email':$('#email').val() , 'password':$('#password').val()}
+  console.log(login_info)
 
-  $.post('http://api.pipedrive.com/v1/authorizations', login_info).done(function(data){
-    console.log(data)
-    api_token = data.data[0].api_token
-    user.set('crm_auth_token', api_token)
-    user.save()
-    window.location.href = "ready.html"
-  });
+  $.post('http://api.pipedrive.com/v1/authorizations', login_info)
+    .done(function(data){
+      console.log('success')
+      api_token = data.data[0].api_token
+      user.set('crm_auth_token', api_token)
+      user.save()
+      window.location.href = "ready.html"
+    })
+    .fail(function(data){
+      console.log('error')
+      $('.login-alert').show()
+    });
 }
 
 /*

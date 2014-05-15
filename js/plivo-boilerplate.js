@@ -34,7 +34,7 @@ function initUI() {
     $('#login_box').show();
     $('#logout_box').hide();
 }
-
+/*
 function callUI() {
     //show outbound call UI
     dialpadHide();
@@ -43,6 +43,7 @@ function callUI() {
     $('#status_txt').text('Ready');
     $('#make_call').text('Call');
 }
+*/
 
 function IncomingCallUI() {
     //show incoming call UI
@@ -96,11 +97,13 @@ function onCallRemoteRinging() {
     $('#status_txt').text('Ringing..');
 }
 
+/*
 function onCallAnswered() {
     console.log('onCallAnswered');
     callAnsweredUI();
     $('#status_txt').text('Call Answered');
 }
+*/
 
 function onCallTerminated() {
     console.log("onCallTerminated");
@@ -199,13 +202,28 @@ function reject() {
     Plivo.conn.reject();
 }
 
+function callAnswered(){
+  console.log('call answered')
+  $('#status_txt').html('<div id="timer"><label id="minutes">00</label>:<label id="seconds">00</label></div>')
+  interval = setInterval(setTime, 1000);
+}
+
+function callTerminated(){
+  $('#timer').remove()
+  $('#status_txt').text('Call Was Terminated.')
+  clearInterval(interval)
+}
+
+function callFailed(){
+}
+
 $(document).ready(function() {
     Plivo.onWebrtcNotSupported = webrtcNotSupportedAlert;
     Plivo.onReady = onReady;
     Plivo.onLogin = onLogin;
     Plivo.onLoginFailed = onLoginFailed;
     Plivo.onLogout = onLogout;
-    Plivo.onCalling = calling;
+    //Plivo.onCalling = calling;
     Plivo.onCallRemoteRinging = onCallRemoteRinging;
     //Plivo.onCallAnswered = onCallAnswered;
     Plivo.onCallAnswered = callAnswered;
@@ -217,22 +235,6 @@ $(document).ready(function() {
     Plivo.init();
 
 });
-
-
-Plivo.onWebrtcNotSupported = webrtcNotSupportedAlert;
-Plivo.onReady = onReady;
-Plivo.onLogin = onLogin;
-Plivo.onLoginFailed = onLoginFailed;
-Plivo.onLogout = onLogout;
-Plivo.onCalling = onCalling;
-Plivo.onCallRemoteRinging = onCallRemoteRinging;
-Plivo.onCallAnswered = onCallAnswered;
-Plivo.onCallTerminated = onCallTerminated;
-Plivo.onCallFailed = onCallFailed;
-Plivo.onMediaPermission = onMediaPermission;
-Plivo.onIncomingCall = onIncomingCall;
-Plivo.onIncomingCallCanceled = onIncomingCallCanceled;
-Plivo.init();
 
 navigator.webkitGetUserMedia({audio: true}, function(_stream) { });
 Plivo.conn.login('robin140507184306', 'lmaolmao');

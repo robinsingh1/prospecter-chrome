@@ -12,15 +12,24 @@
         background: #e5f1f7;
         background: linear-gradient(to bottom, #e5f1f7 0%,#ffffff 100%);
       }
+      .login-alert{
+        font-family:Helvetica;
+        font-weight:bold;
+        background-color:salmon;
+        padding:5px;
+        color:white;
+        border-radius:5px;
+        margin-bottom:25px;
+      }
     </style>
     <link rel="stylesheet" href="css/app.css" />
 
-    <a href="#" class="login btn" style="display:block;float:left;">SIGN UP</a>
+    <a href="signup.html" class="login btn" style="display:block;float:left;">SIGN UP</a>
     <center><h1 class="title signup-title">Uberdialer</h1></center>
     <br/>
-    <center><input class="form-control" placeholder="email"/></center>
-    <center><input class="form-control" placeholder="password"/></center>
-    <br/>
-    <center><a href="#" id="signup_btn" class="signup btn">LOGIN</a></center>
-    <br/>
-    <script src="js/signup.js"></script>
+    <center><div class="login-alert" style="display:none;">Your login info was incorrect. Please try again.</div></center>
+    <center><input class="form-control" id="email" placeholder="email"/></center>
+    <center><input class="form-control" id="password" type="password" placeholder="password"/></center>
+    <br/> <center><a href="#" id="login_btn" class="signup btn">LOGIN</a></center> <br/>
+
+    <script src="js/login.js"></script>

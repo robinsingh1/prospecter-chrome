@@ -1,15 +1,20 @@
 console.log('lol')
 
 function call(e, name){
+  raw_num = $(e.target).text()
   num = $(e.target).text().replace(/[^\d.]/g, "")
   num = '+1'+num
   Plivo.conn.call(num);
 
   name = $($(e.target).parents('tr').find('td')[0]).text()
+
+  messenger(name, raw_num)
+
   user_id = $($(e.target).parents('tr').find('td')[0]).find('a').attr('href')
   user_id = parseInt(user_id.split('/person/details/')[1])
   updateCRM(name, user_id)
 }
+
 
 function updateCRM(name,user_id){
   api_token = '?api_token=f7ecfd6be2d6a793b743893c2a4bc1648449625d'
@@ -41,3 +46,4 @@ for(i=0;i<callto_links.length;i++){
 }
 
 // Salesforce
+
