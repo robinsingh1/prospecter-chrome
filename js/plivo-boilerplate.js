@@ -88,7 +88,7 @@ function onLogout() {
 }
 
 function onCalling() {
-    console.log("onCalling");
+    //console.log("onCalling");
     $('#status_txt').text('Connecting....');
 }
 
@@ -205,11 +205,12 @@ $(document).ready(function() {
     Plivo.onLogin = onLogin;
     Plivo.onLoginFailed = onLoginFailed;
     Plivo.onLogout = onLogout;
-    Plivo.onCalling = onCalling;
+    Plivo.onCalling = calling;
     Plivo.onCallRemoteRinging = onCallRemoteRinging;
-    Plivo.onCallAnswered = onCallAnswered;
-    Plivo.onCallTerminated = onCallTerminated;
-    Plivo.onCallFailed = onCallFailed;
+    //Plivo.onCallAnswered = onCallAnswered;
+    Plivo.onCallAnswered = callAnswered;
+    Plivo.onCallTerminated = callTerminated;
+    Plivo.onCallFailed = callFailed;
     Plivo.onMediaPermission = onMediaPermission;
     Plivo.onIncomingCall = onIncomingCall;
     Plivo.onIncomingCallCanceled = onIncomingCallCanceled;
