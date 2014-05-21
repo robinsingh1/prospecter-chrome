@@ -1,4 +1,3 @@
-console.log('lol')
 var totalSeconds = 0;
 
 function setTime() {
@@ -54,3 +53,4 @@ Messenger.options = {
   // - submit call duration to the update crm method
   // - add user img
 }
+

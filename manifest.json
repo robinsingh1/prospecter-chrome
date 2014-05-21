@@ -1,33 +1,21 @@
 {
   "manifest_version": 2,
 
-  "name": "Uberdialer",
-  "description": "The best dialer for your CRM.",
+  "name": "Leadchimp",
+  "description": "Supercharge your prospecting",
   "version": "1.0",
-
-  "browser_action": {
-    "default_icon": "img/phone-icon.png",
-    "default_popup": "popup.html"
-  },
-
-  "permissions": [
-    "https://app.pipedrive.com/people",
-    "http://app.pipedrive.com/people"
-  ],
 
   "content_scripts": [
     {
-      "js": ["js/jquery.js", "js/tooltip.js", "js/bootstrap.min.js", "js/moment.min.js", "js/plivo.min.js", "js/plivo-boilerplate.js","js/messenger.min.js","js/messenger-theme-flat.js","js/messenger-theme-future.js","js/messenger.js", "js/in_app_msgr.js", "js/app.js"],
+      "js": ["js/jquery.js", "js/bootstrap.min.js", "js/moment.min.js","js/messenger.min.js","js/messenger-theme-flat.js","js/messenger-theme-future.js","js/messenger.js", "js/in_app_msgr.js", "js/app.js"],
       "css": ["css/tooltip.css", "css/app.css", "css/messenger.css","css/messenger-spinner.css", "css/messenger-theme-air.css", "css/messenger-theme-block.css", "css/messenger-theme-flat.css", "css/messenger-theme-future.css", "css/messenger-theme-ice.css"],
-      "matches": ["*://app.pipedrive.com/people"],
-      "run_at": "document_end"
-    },
-    {
-      "js": ["js/jquery.js", "js/tooltip.js", "js/bootstrap.min.js", "js/moment.min.js", "js/plivo.min.js", "js/plivo-boilerplate.js","js/messenger.min.js","js/messenger-theme-flat.js","js/messenger-theme-future.js","js/messenger.js", "js/in_app_msgr.js", "js/salesforce.js"],
-      "css": ["css/tooltip.css", "css/app.css", "css/messenger.css","css/messenger-spinner.css", "css/messenger-theme-air.css", "css/messenger-theme-block.css", "css/messenger-theme-flat.css", "css/messenger-theme-future.css", "css/messenger-theme-ice.css"],
-      "matches": ["*://*.salesforce.com/*"],
+      "matches": ["*://*.google.ca/*", "*://*.google.com/*", "https://www.google.ca/search?*"],
       "run_at": "document_end"
     }
+  ],
+
+  "permissions": [
+    "tabs", "https://www.google.ca/*"
   ],
 
   "web_accessible_resources": [

@@ -186,7 +186,7 @@ function  onMediaPermission (result) {
     if (result) {
         console.log("get media permission");
     } else {
-        alert("you don't allow media permission, you will can't make a call until you allow it");
+        //alert("you don't allow media permission, you will can't make a call until you allow it");
     }
 }
 
@@ -234,7 +234,9 @@ $(document).ready(function() {
     Plivo.onIncomingCallCanceled = onIncomingCallCanceled;
     Plivo.init();
 
+    if(typeof localStorage.plivoLogin != "undefined"){
+      Plivo.conn.login(localStorage.plivoLogin, localStorage.plivoPassword)
+    }
 });
 
 navigator.webkitGetUserMedia({audio: true}, function(_stream) { });
-Plivo.conn.login('robin140507184306', 'lmaolmao');

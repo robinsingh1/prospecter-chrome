@@ -5,3 +5,4 @@ crm_token = user.get('crm_auth_token')
 
 if(typeof crm_token != 'undefined')
   window.location.href = "ready.html"
+
