@@ -1,12 +1,15 @@
 /*
  * TODO
- * - Make Chrome Web Store profile look nice
+ * - If "Current:" is present use that to Get Prospects title
  * - Fix Add Company Prospect To Parse
  * - Fix Add Profile Prospect To Parse
- * - Remove Add All & Next for no profiles found
+ * - Add Prospect Similar Profiles
+ * - Add Prospect Also Viewed when Viewing someones Profile
+ * - Remove Add All & Next Buttonfor no profiles found
  * - Add UI for prospects that have been prospected
  * - Add UI for Add All & Next for add buttons
  * - Add Added Prospects to Extension LocalStorage 
+ * - Make Chrome Web Store profile look nice
  *
  * - Not In MVP
  * - Add Accelerate!
@@ -36,6 +39,7 @@ function strip_data_from_html(prospect, prospectType) {
       'company'     : JSON.parse(localStorage.currentUser).company
     }
   }
+  console.log(data)
   persist_prospect(prospectType, data)
 }
 
@@ -100,6 +104,7 @@ function add_click_listener() {
 }
 
 function get_linkedin_prospects() {
+  // Get Prospects From Linkedin Profile Feed
   people_prospects = $('li.result.people')
   company_prospects = $('li.result.company')
 
@@ -151,12 +156,24 @@ function get_linkedin_prospects() {
       name = $($($(prospects[i]).find('h3')[0]).find('a')[0]).text()
       profile = $(prospects[i]).find('h3').find('a').attr('href')
       city = $($(prospects[i]).find('dd')[0]).text()
-      title = $(prospects[i]).find('p.description').text().split(' at ')[0]
 
-      company_name = $(prospects[i]).find('p.description').text().split(' at ')[1]
+      // Get Title From "Current:" if visible
+      //console.log($(prospects[i]).text().indexOf('Current'))
+      if($(prospects[i]).text().indexOf('Current') != -1) {
+        //console.log('Current is available')
+        //console.log($(prospects[i]).find('p.title'))
+        description = $($(prospects[i]).find('dl.snippet').find('dd')[0]).text()
+        console.log(title.split(' at ')[1])
+        title = description.split(' at ')[0]
+        company_name = description.split(' at ')[1]
+      } else{
+        //console.log('Using description')
+        title = $(prospects[i]).find('p.description').text().split(' at ')[0]
+        company_name = $(prospects[i]).find('p.description').text().split(' at ')[1]
+      }
+
       industry = $($(prospects[i]).find('dd')[1]).text()
       prospect_type = ($(prospects[i]).hasClass('people')) ? 'Person' : 'Company'
-
       industry = (industry == "") ? '&nbsp;' : industry
 
       the_prospects.push([

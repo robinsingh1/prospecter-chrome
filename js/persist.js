@@ -1,9 +1,4 @@
 // TODO 
-// - Split Into Two Functions
-//   - I guess the thinking is that they would be very similar
-// - Initial Info Save To Parse
-// - Add Queue In API
-// - Update Parse Object With New stuff from linkedin API
 
 function persist_prospect(prospectType, data) {
   //console.log(data)
