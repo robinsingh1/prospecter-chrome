@@ -38,14 +38,13 @@ function signin_user() {
         console.log(res)
         // save user in localStorage
         // redirect to prospecter
-        /*
-        chrome.storage.sync.set({'currentUser':res}, function(data) {
-          console.log('Saved', data);
-        })
-        */
         localStorage.currentUser = JSON.stringify(res)
         $('.zoominfo_prospects').remove()
-        add_prospecter_to_linkedin()
+        //add_prospecter_to_linkedin()
+        if(document.URL.indexOf('vsearch') != -1)
+          add_prospecter_to_linkedin()
+        else if(document.URL.indexOf('profile') != -1)
+          add_profile_prospecter_to_linkedin()
       },
       error: function(err) {
         console.log('error')
@@ -69,10 +68,12 @@ jQuery(document).ready(function(){
       if(typeof(currentUser) == "undefined") {
         signin_user()
       } else {
-        if(document.URL.indexOf('profile') != -1)
-          add_profile_prospecter_to_linkedin()
-        else if(document.URL.indexOf('vsearch') != -1)
+        if(document.URL.indexOf('vsearch') != -1)
           add_prospecter_to_linkedin()
+        else if(document.URL.indexOf('profile') != -1)
+          add_profile_prospecter_to_linkedin()
+        else if(document.URL.indexOf('company') != -1)
+          add_company_profile_prospecter_to_linkedin()
       }
     } else if (document.URL.indexOf('zoominfo') != -1) {
       //add_prospecter_to_zoominfo()

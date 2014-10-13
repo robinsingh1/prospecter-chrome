@@ -1,18 +1,19 @@
 /*
  * TODO
- * - If "Current:" is present use that to Get Prospects title
- * - Fix Add Company Prospect To Parse
+ *
+ * - Add Download From App and Remove Button When Extension and Signed In
  * - Fix Add Profile Prospect To Parse
- * - Add Prospect Similar Profiles
- * - Add Prospect Also Viewed when Viewing someones Profile
- * - Remove Add All & Next Buttonfor no profiles found
+ * - Detect User Linkedin Paginate and update prospecter
+ *
  * - Add UI for prospects that have been prospected
  * - Add UI for Add All & Next for add buttons
  * - Add Added Prospects to Extension LocalStorage 
+ *
  * - Make Chrome Web Store profile look nice
  *
- * - Not In MVP
+ * MVP?
  * - Add Accelerate!
+ * - Add keyboard shortcuts
 */
 
 function strip_data_from_html(prospect, prospectType) {
@@ -23,7 +24,9 @@ function strip_data_from_html(prospect, prospectType) {
       'headcount'   : prospect.find('.headcount').text(),
       'profile'     : prospect.find('.profile').text(),
       'industry'    : prospect.find('.industry').text(),
-      'company'     : JSON.parse(localStorage.currentUser).company
+      'company'     : JSON.parse(localStorage.currentUser).company,
+      'loading'     : true,
+      'archived'    : true,
     }
   } else {
     //console.log('strip data')
@@ -36,7 +39,9 @@ function strip_data_from_html(prospect, prospectType) {
       'city'        : prospect.find('.city').text(),
       'user'        : {'__type':'Pointer', 'className':'User', 
                        'objectId':JSON.parse(localStorage.currentUser).objectId },
-      'company'     : JSON.parse(localStorage.currentUser).company
+      'company'     : JSON.parse(localStorage.currentUser).company,
+      'loading'     : true,
+      'archived'    : true,
     }
   }
   console.log(data)
@@ -45,6 +50,7 @@ function strip_data_from_html(prospect, prospectType) {
 
 function add_prospecter_to_linkedin() {
   prospects = get_linkedin_prospects()
+  all_prospects = prospects
 
   $('body').append([ 
       '<div class="zoominfo_prospects" style="">',
@@ -54,6 +60,12 @@ function add_prospecter_to_linkedin() {
       '<div class="prospect-container" style="width:100%">'+prospects.join('')+'</div>',
       '</div>' 
   ].join(''))
+
+  console.log(all_prospects)
+  if(all_prospects.length == 1){
+    console.log('hide')
+    $('#add_all_btn').hide()
+  }
 
   $('#add_all_btn').on('click', function(e) {
     the_prospects = $('.prospect-container').find('div')
@@ -163,7 +175,7 @@ function get_linkedin_prospects() {
         //console.log('Current is available')
         //console.log($(prospects[i]).find('p.title'))
         description = $($(prospects[i]).find('dl.snippet').find('dd')[0]).text()
-        console.log(title.split(' at ')[1])
+        //console.log(title.split(' at ')[1])
         title = description.split(' at ')[0]
         company_name = description.split(' at ')[1]
       } else{

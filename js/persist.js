@@ -12,7 +12,7 @@ function persist_prospect(prospectType, data) {
                'description'   : data.pos,
                'name'          : data.name          }
 
-  parseEndpoint = (prospectType == 'Company') ? 'CompanyProspect' : 'Prospects'
+  parseEndpoint = (prospectType == 'Company') ? 'CompanyProspect' : 'Prospect'
   apiEndpoint =  (prospectType == 'Company') ? 'get_company_info' : 'get_company_website_from_name' 
 
   if(data.company_name == "undefined"){
@@ -31,13 +31,15 @@ function persist_prospect(prospectType, data) {
     data: JSON.stringify(data),
     prospectData: the_data,
     success: function(res) {
+      console.log("success")
       prospectData = this.prospectData
       prospectData.objectId = res.objectId
       console.log(prospectData.objectId + " " + prospectData.case)
       
       $.ajax({
         //url: 'https://agile-plains-2430.herokuapp.com/linkedin_info_request',
-        url: 'http://127.0.0.1:5000/linkedin_info_request',
+        url: 'https://nameless-retreat-3525.herokuapp.com/linkedin_info_request',
+        //url: 'http://127.0.0.1:5000/linkedin_info_request',
         type:'GET',
         data: prospectData,
         success: function(res) {
