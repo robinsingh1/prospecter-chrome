@@ -14,6 +14,7 @@
  * MVP?
  * - Add Accelerate!
  * - Add keyboard shortcuts
+ * - wtf
 */
 
 function strip_data_from_html(prospect, prospectType) {
@@ -29,7 +30,14 @@ function strip_data_from_html(prospect, prospectType) {
       'archived'    : true,
     }
   } else {
-    //console.log('strip data')
+    console.debug('strip data')
+    console.log('strip data')
+    console.log(prospect.html())
+    /*
+    _.map(prospect.find('dt.label'), function(label) {
+      console.log($(label).text())
+    })
+    */
     data = {
       'name'        : prospect.find('.li-company-name').text(),
       'pos'         : prospect.find('.title').text(),
@@ -55,19 +63,21 @@ function add_prospecter_to_linkedin() {
   $('body').append([ 
       '<div class="zoominfo_prospects" style="">',
       '<div class="title-container">',
-      '<button id="add_all_btn" style="display:block;float:right;margin-top:15px">Add All & Next</button>',
+      '<button id="add_all_btn_1" style="display:block;float:right;margin-top:15px">Add All & Next</button>',
       '<h1 class="widget-title" style="">Customero</h1></div>', 
       '<div class="prospect-container" style="width:100%">'+prospects.join('')+'</div>',
       '</div>' 
   ].join(''))
 
   console.log(all_prospects)
+
   if(all_prospects.length == 1){
     console.log('hide')
     $('#add_all_btn').hide()
   }
 
-  $('#add_all_btn').on('click', function(e) {
+  $('#add_all_btn_1').on('click', function(e) {
+    console.log('clicked')
     the_prospects = $('.prospect-container').find('div')
     for(i=0;i < the_prospects.length;i++) {
       prospectType = $(the_prospects[i]).find('.prospect-type').text()
@@ -75,7 +85,7 @@ function add_prospecter_to_linkedin() {
       if(i > 10) break;
     }
 
-    // Go To Next Page
+    console.log('add all button')
     $('body').find('a[rel=next]')[0].click()
     overlayHidden = false
     lol = setInterval(function() {
@@ -142,7 +152,6 @@ function get_linkedin_prospects() {
       industry = $(prospects[i]).find('p.description').text()
       headcount = $($(prospects[i]).find('dd')[1]).text()
       prospect_type = ($(prospects[i]).hasClass('people')) ? 'Person' : 'Company'
-      
       //industry = (industry == "") ? '&nbsp;' : industry
 
       the_prospects.push([
@@ -174,8 +183,17 @@ function get_linkedin_prospects() {
       if($(prospects[i]).text().indexOf('Current') != -1) {
         //console.log('Current is available')
         //console.log($(prospects[i]).find('p.title'))
-        description = $($(prospects[i]).find('dl.snippet').find('dd')[0]).text()
-        //console.log(title.split(' at ')[1])
+        description = $($(prospects[i]).find('dl.snippet').find('dd').find('p.title')[0]).text()
+        snippets = $(prospects[i]).find('dl.snippet').find('dd')
+        labels = $(prospects[i]).find('dl.snippet').find('dt')
+
+        for(ii=0;ii< snippets.length; ii++){
+          if($(labels[ii]).text() == "Current"){
+            des = $($(snippets)[ii]).find('.title').text()
+            description = $($($(snippets)[ii]).find('p')[0]).text()
+            console.debug(description)
+          }
+        }
         title = description.split(' at ')[0]
         company_name = description.split(' at ')[1]
       } else{
